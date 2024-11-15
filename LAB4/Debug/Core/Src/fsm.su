@@ -1,0 +1,6 @@
+fsm.c:17:6:displayTime	24	static
+fsm.c:27:6:displayTimer	24	static
+fsm.c:35:6:timer_mode	24	static
+fsm.c:122:6:alarm	16	static
+fsm.c:133:6:adjustingTime_mode	24	static
+fsm.c:266:6:fsm_run	8	static
