@@ -39,13 +39,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_macro  0002442b  00000000  00000000  00045410  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   0001cf7f  00000000  00000000  0006983b  2**0
+ 18 .debug_line   0001cf7c  00000000  00000000  0006983b  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000d21d2  00000000  00000000  000867ba  2**0
+ 19 .debug_str    000d21d2  00000000  00000000  000867b7  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000053  00000000  00000000  0015898c  2**0
+ 20 .comment      00000053  00000000  00000000  00158989  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00005704  00000000  00000000  001589e0  2**2
+ 21 .debug_frame  00005704  00000000  00000000  001589dc  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1023,7 +1023,6 @@ void displayTimer(){
  80009c4:	b580      	push	{r7, lr}
  80009c6:	b084      	sub	sp, #16
  80009c8:	af04      	add	r7, sp, #16
-//	lcd_Clear(BLACK);
 	lcd_ShowIntNum(70, 100, timer_hours, 2, MAGENTA, BLACK, 24);
  80009ca:	4b26      	ldr	r3, [pc, #152]	; (8000a64 <displayTimer+0xa0>)
  80009cc:	781b      	ldrb	r3, [r3, #0]
@@ -1142,7 +1141,6 @@ void clockTime(){
 
 08000ac0 <timer_mode>:
 
-
 void timer_mode(){
  8000ac0:	b580      	push	{r7, lr}
  8000ac2:	b084      	sub	sp, #16
@@ -1209,7 +1207,7 @@ void timer_mode(){
  8000b3e:	88db      	ldrh	r3, [r3, #6]
  8000b40:	2b01      	cmp	r3, #1
  8000b42:	d116      	bne.n	8000b72 <timer_mode+0xb2>
-			timer_hours = (timer_hours + 1) %24; //btn3 = ↑
+			timer_hours = (timer_hours + 1) %24;
  8000b44:	4b8d      	ldr	r3, [pc, #564]	; (8000d7c <timer_mode+0x2bc>)
  8000b46:	781b      	ldrb	r3, [r3, #0]
  8000b48:	1c5a      	adds	r2, r3, #1
@@ -1260,8 +1258,7 @@ void timer_mode(){
  8000b9e:	4b76      	ldr	r3, [pc, #472]	; (8000d78 <timer_mode+0x2b8>)
  8000ba0:	220b      	movs	r2, #11
  8000ba2:	701a      	strb	r2, [r3, #0]
-//			HAL_GPIO_TogglePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin);
-			timer_hours = (timer_hours + 1) %24; //btn3 = ↑
+			timer_hours = (timer_hours + 1) %24;
  8000ba4:	4b75      	ldr	r3, [pc, #468]	; (8000d7c <timer_mode+0x2bc>)
  8000ba6:	781b      	ldrb	r3, [r3, #0]
  8000ba8:	1c5a      	adds	r2, r3, #1
@@ -1285,7 +1282,6 @@ void timer_mode(){
  8000bcc:	2002      	movs	r0, #2
  8000bce:	f7ff fd3b 	bl	8000648 <ds3231_Write>
 		}
-
 		if(button_count[0] == 1) {TIMER = timerM; count_led_flash = 0; displayTimer();}
  8000bd2:	4b6b      	ldr	r3, [pc, #428]	; (8000d80 <timer_mode+0x2c0>)
  8000bd4:	881b      	ldrh	r3, [r3, #0]
@@ -1298,7 +1294,6 @@ void timer_mode(){
  8000be4:	2200      	movs	r2, #0
  8000be6:	701a      	strb	r2, [r3, #0]
  8000be8:	f7ff feec 	bl	80009c4 <displayTimer>
-		// if(button_count[14] == 1) status = MODE1;
 		break;
  8000bec:	e150      	b.n	8000e90 <timer_mode+0x3d0>
 	case timerM:
@@ -1341,7 +1336,7 @@ void timer_mode(){
  8000c34:	88db      	ldrh	r3, [r3, #6]
  8000c36:	2b01      	cmp	r3, #1
  8000c38:	d117      	bne.n	8000c6a <timer_mode+0x1aa>
-			timer_min = (timer_min + 1) % 60; //btn3 = ↑
+			timer_min = (timer_min + 1) % 60;
  8000c3a:	4b54      	ldr	r3, [pc, #336]	; (8000d8c <timer_mode+0x2cc>)
  8000c3c:	781b      	ldrb	r3, [r3, #0]
  8000c3e:	1c5a      	adds	r2, r3, #1
@@ -1393,8 +1388,7 @@ void timer_mode(){
  8000c96:	4b38      	ldr	r3, [pc, #224]	; (8000d78 <timer_mode+0x2b8>)
  8000c98:	220b      	movs	r2, #11
  8000c9a:	701a      	strb	r2, [r3, #0]
-//			HAL_GPIO_TogglePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin);
-			timer_min = (timer_min + 1) % 60; //btn3 = ↑
+			timer_min = (timer_min + 1) % 60;
  8000c9c:	4b3b      	ldr	r3, [pc, #236]	; (8000d8c <timer_mode+0x2cc>)
  8000c9e:	781b      	ldrb	r3, [r3, #0]
  8000ca0:	1c5a      	adds	r2, r3, #1
@@ -1431,7 +1425,6 @@ void timer_mode(){
  8000cde:	2200      	movs	r2, #0
  8000ce0:	701a      	strb	r2, [r3, #0]
  8000ce2:	f7ff fe6f 	bl	80009c4 <displayTimer>
-		// if(button_count[14] == 1) status = MODE1;
 		break;
  8000ce6:	e0d5      	b.n	8000e94 <timer_mode+0x3d4>
 	case timerS:
@@ -1474,7 +1467,7 @@ void timer_mode(){
  8000d2e:	88db      	ldrh	r3, [r3, #6]
  8000d30:	2b01      	cmp	r3, #1
  8000d32:	d117      	bne.n	8000d64 <timer_mode+0x2a4>
-			timer_sec = (timer_sec + 1) % 60; //btn3 = ↑
+			timer_sec = (timer_sec + 1) % 60;
  8000d34:	4b17      	ldr	r3, [pc, #92]	; (8000d94 <timer_mode+0x2d4>)
  8000d36:	781b      	ldrb	r3, [r3, #0]
  8000d38:	1c5a      	adds	r2, r3, #1
@@ -1535,8 +1528,8 @@ void timer_mode(){
  8000db4:	4b3d      	ldr	r3, [pc, #244]	; (8000eac <timer_mode+0x3ec>)
  8000db6:	220b      	movs	r2, #11
  8000db8:	701a      	strb	r2, [r3, #0]
-//			HAL_GPIO_TogglePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin);
-			timer_sec = (timer_sec + 1) % 60; //btn3 = ↑
+
+			timer_sec = (timer_sec + 1) % 60;
  8000dba:	4b3d      	ldr	r3, [pc, #244]	; (8000eb0 <timer_mode+0x3f0>)
  8000dbc:	781b      	ldrb	r3, [r3, #0]
  8000dbe:	1c5a      	adds	r2, r3, #1
@@ -1573,7 +1566,6 @@ void timer_mode(){
  8000dfa:	2200      	movs	r2, #0
  8000dfc:	701a      	strb	r2, [r3, #0]
  8000dfe:	f7ff fde1 	bl	80009c4 <displayTimer>
-		// if(button_count[14] == 1) status = MODE1;
 		break;
  8000e02:	e049      	b.n	8000e98 <timer_mode+0x3d8>
 	case timerC:
@@ -1616,7 +1608,7 @@ void timer_mode(){
  8000e4a:	88db      	ldrh	r3, [r3, #6]
  8000e4c:	2b01      	cmp	r3, #1
  8000e4e:	d110      	bne.n	8000e72 <timer_mode+0x3b2>
-			timer_check = (timer_check + 1) %2;//btn3 = ↑
+			timer_check = (timer_check + 1) %2;
  8000e50:	4b1a      	ldr	r3, [pc, #104]	; (8000ebc <timer_mode+0x3fc>)
  8000e52:	781b      	ldrb	r3, [r3, #0]
  8000e54:	3301      	adds	r3, #1
@@ -1646,7 +1638,6 @@ void timer_mode(){
  8000e82:	2200      	movs	r2, #0
  8000e84:	701a      	strb	r2, [r3, #0]
  8000e86:	f7ff fd9d 	bl	80009c4 <displayTimer>
-		// if(button_count[14] == 1) status = MODE1;
 		break;
  8000e8a:	e007      	b.n	8000e9c <timer_mode+0x3dc>
 	default:
@@ -1852,6 +1843,7 @@ void alarm(){
  8001030:	20000038 	.word	0x20000038
 
 08001034 <adjustingTime_mode>:
+
 void adjustingTime_mode(){
  8001034:	b580      	push	{r7, lr}
  8001036:	b084      	sub	sp, #16
@@ -1871,7 +1863,6 @@ void adjustingTime_mode(){
  800105c:	08001507 	.word	0x08001507
  8001060:	08001627 	.word	0x08001627
 	case hour:
-//		displayTime();
 		if(count_led_flash < 10){
  8001064:	4b9f      	ldr	r3, [pc, #636]	; (80012e4 <adjustingTime_mode+0x2b0>)
  8001066:	781b      	ldrb	r3, [r3, #0]
@@ -1912,8 +1903,7 @@ void adjustingTime_mode(){
  80010aa:	88db      	ldrh	r3, [r3, #6]
  80010ac:	2b01      	cmp	r3, #1
  80010ae:	d116      	bne.n	80010de <adjustingTime_mode+0xaa>
-		    // Increment hour and ensure it's in 24-hour format
-		    ds3231_hours = (ds3231_hours + 1) %24; // Increment and wrap around after 24
+		    ds3231_hours = (ds3231_hours + 1) %24;
  80010b0:	4b8d      	ldr	r3, [pc, #564]	; (80012e8 <adjustingTime_mode+0x2b4>)
  80010b2:	781b      	ldrb	r3, [r3, #0]
  80010b4:	1c5a      	adds	r2, r3, #1
@@ -1930,7 +1920,7 @@ void adjustingTime_mode(){
  80010cc:	b2ca      	uxtb	r2, r1
  80010ce:	4b86      	ldr	r3, [pc, #536]	; (80012e8 <adjustingTime_mode+0x2b4>)
  80010d0:	701a      	strb	r2, [r3, #0]
-		    ds3231_Write(ADDRESS_HOUR, ds3231_hours); // Update RTC module with the new hour
+		    ds3231_Write(ADDRESS_HOUR, ds3231_hours);
  80010d2:	4b85      	ldr	r3, [pc, #532]	; (80012e8 <adjustingTime_mode+0x2b4>)
  80010d4:	781b      	ldrb	r3, [r3, #0]
  80010d6:	4619      	mov	r1, r3
@@ -1965,8 +1955,8 @@ void adjustingTime_mode(){
  800110a:	4b76      	ldr	r3, [pc, #472]	; (80012e4 <adjustingTime_mode+0x2b0>)
  800110c:	220b      	movs	r2, #11
  800110e:	701a      	strb	r2, [r3, #0]
-//			HAL_GPIO_TogglePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin);
-			ds3231_hours = (ds3231_hours + 1) %24; // Increment and wrap around after 24
+
+			ds3231_hours = (ds3231_hours + 1) %24;
  8001110:	4b75      	ldr	r3, [pc, #468]	; (80012e8 <adjustingTime_mode+0x2b4>)
  8001112:	781b      	ldrb	r3, [r3, #0]
  8001114:	1c5a      	adds	r2, r3, #1
@@ -1990,7 +1980,6 @@ void adjustingTime_mode(){
  8001138:	2002      	movs	r0, #2
  800113a:	f7ff fa85 	bl	8000648 <ds3231_Write>
 		}
-
 		if(button_count[0] == 1) {TMP = min; count_led_flash = 0; displayAdjTime(); }
  800113e:	4b6b      	ldr	r3, [pc, #428]	; (80012ec <adjustingTime_mode+0x2b8>)
  8001140:	881b      	ldrh	r3, [r3, #0]
@@ -2003,11 +1992,9 @@ void adjustingTime_mode(){
  8001150:	2200      	movs	r2, #0
  8001152:	701a      	strb	r2, [r3, #0]
  8001154:	f7ff fbaa 	bl	80008ac <displayAdjTime>
-//		if(button_count[14] == 1) status = MODE3;
 		break;
  8001158:	e2e1      	b.n	800171e <adjustingTime_mode+0x6ea>
 	case min:
-//		displayTime();
 		if(count_led_flash < 10){
  800115a:	4b62      	ldr	r3, [pc, #392]	; (80012e4 <adjustingTime_mode+0x2b0>)
  800115c:	781b      	ldrb	r3, [r3, #0]
@@ -2047,7 +2034,7 @@ void adjustingTime_mode(){
  80011a0:	88db      	ldrh	r3, [r3, #6]
  80011a2:	2b01      	cmp	r3, #1
  80011a4:	d117      	bne.n	80011d6 <adjustingTime_mode+0x1a2>
-			ds3231_min = (ds3231_min + 1) % 60; //btn3 = ↑
+			ds3231_min = (ds3231_min + 1) % 60;
  80011a6:	4b54      	ldr	r3, [pc, #336]	; (80012f8 <adjustingTime_mode+0x2c4>)
  80011a8:	781b      	ldrb	r3, [r3, #0]
  80011aa:	1c5a      	adds	r2, r3, #1
@@ -2099,8 +2086,7 @@ void adjustingTime_mode(){
  8001202:	4b38      	ldr	r3, [pc, #224]	; (80012e4 <adjustingTime_mode+0x2b0>)
  8001204:	220b      	movs	r2, #11
  8001206:	701a      	strb	r2, [r3, #0]
-//			HAL_GPIO_TogglePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin);
-			ds3231_min = (ds3231_min + 1) % 60; //btn3 = ↑
+			ds3231_min = (ds3231_min + 1) % 60;
  8001208:	4b3b      	ldr	r3, [pc, #236]	; (80012f8 <adjustingTime_mode+0x2c4>)
  800120a:	781b      	ldrb	r3, [r3, #0]
  800120c:	1c5a      	adds	r2, r3, #1
@@ -2125,8 +2111,6 @@ void adjustingTime_mode(){
  8001232:	2001      	movs	r0, #1
  8001234:	f7ff fa08 	bl	8000648 <ds3231_Write>
 		}
-
-
 		if(button_count[0] == 1) {TMP = sec; count_led_flash = 0; displayAdjTime();}
  8001238:	4b2c      	ldr	r3, [pc, #176]	; (80012ec <adjustingTime_mode+0x2b8>)
  800123a:	881b      	ldrh	r3, [r3, #0]
@@ -2139,11 +2123,9 @@ void adjustingTime_mode(){
  800124a:	2200      	movs	r2, #0
  800124c:	701a      	strb	r2, [r3, #0]
  800124e:	f7ff fb2d 	bl	80008ac <displayAdjTime>
-//		if(button_count[14] == 1) status = MODE3;
 		break;
  8001252:	e266      	b.n	8001722 <adjustingTime_mode+0x6ee>
 	case sec:
-//		displayTime();
 		if(count_led_flash < 10){
  8001254:	4b23      	ldr	r3, [pc, #140]	; (80012e4 <adjustingTime_mode+0x2b0>)
  8001256:	781b      	ldrb	r3, [r3, #0]
@@ -2183,7 +2165,7 @@ void adjustingTime_mode(){
  800129a:	88db      	ldrh	r3, [r3, #6]
  800129c:	2b01      	cmp	r3, #1
  800129e:	d117      	bne.n	80012d0 <adjustingTime_mode+0x29c>
-			ds3231_sec = (ds3231_sec + 1) % 60; //btn3 = ↑
+			ds3231_sec = (ds3231_sec + 1) % 60;
  80012a0:	4b17      	ldr	r3, [pc, #92]	; (8001300 <adjustingTime_mode+0x2cc>)
  80012a2:	781b      	ldrb	r3, [r3, #0]
  80012a4:	1c5a      	adds	r2, r3, #1
@@ -2244,8 +2226,8 @@ void adjustingTime_mode(){
  8001320:	4b9d      	ldr	r3, [pc, #628]	; (8001598 <adjustingTime_mode+0x564>)
  8001322:	220b      	movs	r2, #11
  8001324:	701a      	strb	r2, [r3, #0]
-//			HAL_GPIO_TogglePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin);
-			ds3231_sec = (ds3231_sec + 1) % 60; //btn3 = ↑
+
+			ds3231_sec = (ds3231_sec + 1) % 60;
  8001326:	4b9d      	ldr	r3, [pc, #628]	; (800159c <adjustingTime_mode+0x568>)
  8001328:	781b      	ldrb	r3, [r3, #0]
  800132a:	1c5a      	adds	r2, r3, #1
@@ -2282,11 +2264,9 @@ void adjustingTime_mode(){
  8001368:	2200      	movs	r2, #0
  800136a:	701a      	strb	r2, [r3, #0]
  800136c:	f7ff fa9e 	bl	80008ac <displayAdjTime>
-//		if(button_count[14] == 1) status = MODE3;
 		break;
  8001370:	e1d9      	b.n	8001726 <adjustingTime_mode+0x6f2>
 	case day:
-//		displayTime();
 		if(count_led_flash < 10){
  8001372:	4b89      	ldr	r3, [pc, #548]	; (8001598 <adjustingTime_mode+0x564>)
  8001374:	781b      	ldrb	r3, [r3, #0]
@@ -2356,7 +2336,7 @@ void adjustingTime_mode(){
  80013f2:	88db      	ldrh	r3, [r3, #6]
  80013f4:	2b01      	cmp	r3, #1
  80013f6:	d12f      	bne.n	8001458 <adjustingTime_mode+0x424>
-			ds3231_day = (ds3231_day % 7) + 1;//btn3 = ↑ //day = 6 -> 7 = 0, display: 1?
+			ds3231_day = (ds3231_day % 7) + 1;
  80013f8:	4b6b      	ldr	r3, [pc, #428]	; (80015a8 <adjustingTime_mode+0x574>)
  80013fa:	781a      	ldrb	r2, [r3, #0]
  80013fc:	4b6c      	ldr	r3, [pc, #432]	; (80015b0 <adjustingTime_mode+0x57c>)
@@ -2432,8 +2412,7 @@ void adjustingTime_mode(){
  8001484:	4b44      	ldr	r3, [pc, #272]	; (8001598 <adjustingTime_mode+0x564>)
  8001486:	220b      	movs	r2, #11
  8001488:	701a      	strb	r2, [r3, #0]
-//			HAL_GPIO_TogglePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin);
-			ds3231_day = (ds3231_day % 7) + 1;//btn3 = ↑ //day = 6 -> 7 = 0, display: 1?
+			ds3231_day = (ds3231_day % 7) + 1;
  800148a:	4b47      	ldr	r3, [pc, #284]	; (80015a8 <adjustingTime_mode+0x574>)
  800148c:	781a      	ldrb	r2, [r3, #0]
  800148e:	4b48      	ldr	r3, [pc, #288]	; (80015b0 <adjustingTime_mode+0x57c>)
@@ -2494,11 +2473,9 @@ void adjustingTime_mode(){
  80014fc:	2200      	movs	r2, #0
  80014fe:	701a      	strb	r2, [r3, #0]
  8001500:	f7ff f9d4 	bl	80008ac <displayAdjTime>
-//		if(button_count[14] == 1) status = MODE3;
 		break;
  8001504:	e111      	b.n	800172a <adjustingTime_mode+0x6f6>
 	case month:
-//		displayTime();
 		if(count_led_flash < 10){
  8001506:	4b24      	ldr	r3, [pc, #144]	; (8001598 <adjustingTime_mode+0x564>)
  8001508:	781b      	ldrb	r3, [r3, #0]
@@ -2538,7 +2515,7 @@ void adjustingTime_mode(){
  800154c:	88db      	ldrh	r3, [r3, #6]
  800154e:	2b01      	cmp	r3, #1
  8001550:	d115      	bne.n	800157e <adjustingTime_mode+0x54a>
-			ds3231_month = (ds3231_month % 12) +  1; //btn3 = ↑
+			ds3231_month = (ds3231_month % 12) +  1;
  8001552:	4b18      	ldr	r3, [pc, #96]	; (80015b4 <adjustingTime_mode+0x580>)
  8001554:	781a      	ldrb	r2, [r3, #0]
  8001556:	4b18      	ldr	r3, [pc, #96]	; (80015b8 <adjustingTime_mode+0x584>)
@@ -2600,8 +2577,7 @@ void adjustingTime_mode(){
  80015d8:	4b5a      	ldr	r3, [pc, #360]	; (8001744 <adjustingTime_mode+0x710>)
  80015da:	220b      	movs	r2, #11
  80015dc:	701a      	strb	r2, [r3, #0]
-//			HAL_GPIO_TogglePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin);
-			ds3231_month = (ds3231_month % 12) +  1; //btn3 = ↑
+			ds3231_month = (ds3231_month % 12) +  1;
  80015de:	4b5a      	ldr	r3, [pc, #360]	; (8001748 <adjustingTime_mode+0x714>)
  80015e0:	781a      	ldrb	r2, [r3, #0]
  80015e2:	4b5a      	ldr	r3, [pc, #360]	; (800174c <adjustingTime_mode+0x718>)
@@ -2636,11 +2612,9 @@ void adjustingTime_mode(){
  800161c:	2200      	movs	r2, #0
  800161e:	701a      	strb	r2, [r3, #0]
  8001620:	f7ff f944 	bl	80008ac <displayAdjTime>
-//		if(button_count[14] == 1) status = MODE3;
 		break;
  8001624:	e083      	b.n	800172e <adjustingTime_mode+0x6fa>
 	case year:
-//		displayTime();
 		if(count_led_flash < 10){
  8001626:	4b47      	ldr	r3, [pc, #284]	; (8001744 <adjustingTime_mode+0x710>)
  8001628:	781b      	ldrb	r3, [r3, #0]
@@ -2680,7 +2654,7 @@ void adjustingTime_mode(){
  800166c:	88db      	ldrh	r3, [r3, #6]
  800166e:	2b01      	cmp	r3, #1
  8001670:	d116      	bne.n	80016a0 <adjustingTime_mode+0x66c>
-			ds3231_year = (ds3231_year % 99) +  1; //btn3 = ↑
+			ds3231_year = (ds3231_year % 99) +  1;
  8001672:	4b38      	ldr	r3, [pc, #224]	; (8001754 <adjustingTime_mode+0x720>)
  8001674:	781a      	ldrb	r2, [r3, #0]
  8001676:	4b38      	ldr	r3, [pc, #224]	; (8001758 <adjustingTime_mode+0x724>)
@@ -2731,8 +2705,7 @@ void adjustingTime_mode(){
  80016cc:	4b1d      	ldr	r3, [pc, #116]	; (8001744 <adjustingTime_mode+0x710>)
  80016ce:	220b      	movs	r2, #11
  80016d0:	701a      	strb	r2, [r3, #0]
-//			HAL_GPIO_TogglePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin);
-			ds3231_year = (ds3231_year % 99) +  1; //btn3 = ↑
+			ds3231_year = (ds3231_year % 99) +  1;
  80016d2:	4b20      	ldr	r3, [pc, #128]	; (8001754 <adjustingTime_mode+0x720>)
  80016d4:	781a      	ldrb	r2, [r3, #0]
  80016d6:	4b20      	ldr	r3, [pc, #128]	; (8001758 <adjustingTime_mode+0x724>)
@@ -2768,7 +2741,6 @@ void adjustingTime_mode(){
  8001710:	2200      	movs	r2, #0
  8001712:	701a      	strb	r2, [r3, #0]
  8001714:	f7ff f8ca 	bl	80008ac <displayAdjTime>
-//		if(button_count[14] == 1) status = MODE3;
 		break;
  8001718:	e00b      	b.n	8001732 <adjustingTime_mode+0x6fe>
 	default:
@@ -2827,16 +2799,14 @@ void  fsm_run(){
 	case INIT:
 		updateTime();
  8001780:	f7fe ffe8 	bl	8000754 <updateTime>
-//		testAlarm();
-//		ds3231_ReadTime();
+//		testAlarm();       setup for arlam testing
 		status = MODE1;
  8001784:	4b1e      	ldr	r3, [pc, #120]	; (8001800 <fsm_run+0xa4>)
  8001786:	2202      	movs	r2, #2
  8001788:	601a      	str	r2, [r3, #0]
 		break;
  800178a:	e037      	b.n	80017fc <fsm_run+0xa0>
-	case MODE1: //running
-//		displayTime();
+	case MODE1: //done and running
 		alarm();
  800178c:	f7ff fb98 	bl	8000ec0 <alarm>
 		if(button_count[14] == 1) {
@@ -2860,8 +2830,7 @@ void  fsm_run(){
 		}
 		break;
  80017ae:	e020      	b.n	80017f2 <fsm_run+0x96>
-	case MODE2: //running, the hold btn to increase not done yet
-//		count_led_flash = (count_led_flash + 1)%20;
+	case MODE2: //done and running
 		adjustingTime_mode();
  80017b0:	f7ff fc40 	bl	8001034 <adjustingTime_mode>
 		if(button_count[14] == 1) {
@@ -2883,8 +2852,7 @@ void  fsm_run(){
 		}
 		break;
  80017ce:	e012      	b.n	80017f6 <fsm_run+0x9a>
-	case MODE3: //running, hold btn to increase and alarm not done yet
-
+	case MODE3: //done and running
 		timer_mode();
  80017d0:	f7ff f976 	bl	8000ac0 <timer_mode>
 		if(button_count[14] == 1) {
@@ -2901,7 +2869,6 @@ void  fsm_run(){
  80017e4:	f000 fad0 	bl	8001d88 <lcd_Clear>
 			clockTime();
  80017e8:	f7ff f946 	bl	8000a78 <clockTime>
-//			alarm();
 		}
 		break;
  80017ec:	e005      	b.n	80017fa <fsm_run+0x9e>
@@ -2918,7 +2885,6 @@ void  fsm_run(){
 		break;
  80017fa:	bf00      	nop
 	}
-	
 }
  80017fc:	bf00      	nop
  80017fe:	bd80      	pop	{r7, pc}
